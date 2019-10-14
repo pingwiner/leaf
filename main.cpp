@@ -3,8 +3,8 @@
 
 using namespace std;
 
-int SCREEN_WIDTH = 256;
-int SCREEN_HEIGHT = 192;
+int SCREEN_WIDTH = 800;
+int SCREEN_HEIGHT = 600;
 
 SDL_Window *win = NULL;
 SDL_Renderer *ren = NULL;
@@ -51,29 +51,35 @@ int main (int arhc, char ** argv) {
     SDL_RenderClear(ren);
     SDL_SetRenderDrawColor(ren, 0xFF, 0xFF, 0xFF, 0xFF);
 
+    double a = 0; 
+    double b = 0; 
+    double c = 0; 
+    double d = 0.16; 
+    double e = 0; 
+    double f = 0;
     double x = 0;
     double y = 0;
+    double x1 = 0;
+    double y1 = 0;
+
 	int oldx = x;    		
 
     for (int i = 0; i < 100000; i++) {
     	int r = rand() % 100;
     	if (r == 0) {
-    		x = 0; 
-    		y = 0.16 * y;
+    		 a = 0; b = 0; c = 0; d = 0.16; e = 0; f = 0;
     	} else if ((r > 0) && (r < 86)) {
-    		oldx = x;    		
-			x = 0.85 * x + 0.04 * y; 
-			y = -0.04 * oldx + 0.85 * y + 1.6;
+    		a = 0.85; b = 0.04; c = -0.04; d = 0.85; e = 0; f = 1.6;
     	} else if ((r >=86 ) && (r < 93)) {
-			oldx = x;
-    		x = 0.2 * x - 0.26 * y; 
-    		y = 0.23 * oldx + 0.22 * y + 1.6;
+			a = 0.2; b = -0.26; c = 0.23; d = 0.22; e = 0; f = 1.6;
     	} else {
-    		oldx = x;
-    		x = -0.15 * x + 0.28 * y; 
-    		y = 0.26 * oldx + 0.24 * y + 0.44;
+    		a = -0.15; b = 0.28; c = 0.26; d = 0.24; e = 0; f = 0.44;
     	}
-    	SDL_RenderDrawPoint(ren, (int) (y * 25), (int) (x * 20 + 96) );
+        x1 = (a * x) + (b * y) + e;
+        y1 = (c * x) + (d * y) + f;
+        x = x1;
+        y = y1;
+    	SDL_RenderDrawPoint(ren, (int) (y * SCREEN_WIDTH / 10), (int) (x * SCREEN_HEIGHT / 10 + SCREEN_HEIGHT / 2) );
 	}
 
     SDL_RenderPresent(ren);
